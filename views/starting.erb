@@ -1,23 +1,30 @@
-<% if @name %>
+<center><% if @name %>
 <p>Welcome, <%= @name %>!</p>
-<% end %>
+<% end %></center>
 
-<% if @name2 %>
+<center><% if @name2 %>
 <p>Welcome, <%= @name2 %>!</p>
-<% end %>
+<% end %></center>
 
-<% if GAME.players.count == 1 %>
+<center><% if GAME.players.count == 1 %>
 <p>We have <%= GAME.players.count %> player </p>
+<% end %></center>
+
+<center><% if GAME.players.count == 2 %>
+<p>We have <%= GAME.players.count %> players </p>
+<% end %></center>
+<!-- 
+<% if GAME.players.count < 2 %>
+<center><form action ='/starting' method='post'>
+What's your name?<input type="text" name="name" placeholder="e.g.Pavel">
+<input type="submit" value="start">
+</form></center
 <% end %>
 
 <% if GAME.players.count == 2 %>
-<p>We have <%= GAME.players.count %> players </p>
-<% end %>
+<center><form action ='/place_ships' method='post'>
+<input type="submit" value="Click if you are ready to play">
+</form></center>
+<% end %> -->
 
 
-<% if GAME.players.count != 2 %>
-<form action ='/starting' method='post'>
-What's your name?<input type="text" name="name" placeholder="e.g.Pavel">
-<input type="submit" value="start">
-</form>
-<% end %>

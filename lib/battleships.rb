@@ -8,6 +8,10 @@ class BattleShip < Sinatra::Base
 
   set :views, Proc.new { File.join(root, "..", "views") }
 
+  set :public_folder, 'public'
+
+  enable :session
+
   get '/' do
     erb :index
   end
@@ -23,9 +27,11 @@ class BattleShip < Sinatra::Base
   end
 
   post '/starting' do
-    player = Player.new(params[:name])
+    player = Player.new(params[:name]) 
     GAME.add(player)
-    @name = GAME.players[0].name
+    session['player1'] = player.object_id
+    @name = player.name
+    # puts session.inspect
     @name2 = player.name if params[:name] && GAME.players.count == 2
     erb :starting
   end
@@ -33,3 +39,4 @@ class BattleShip < Sinatra::Base
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
+ 
