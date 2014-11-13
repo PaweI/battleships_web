@@ -1,7 +1,23 @@
 <% if @name %>
-Welcome, <%= @name %>!
+<p>Welcome, <%= @name %>!</p>
+<% end %>
+
+<% if @name2 %>
+<p>Welcome, <%= @name2 %>!</p>
 <% end %>
 
 <% if GAME.players.count == 1 %>
-<p>We have 1 player</p>
+<p>We have <%= GAME.players.count %> player </p>
+<% end %>
+
+<% if GAME.players.count == 2 %>
+<p>We have <%= GAME.players.count %> players </p>
+<% end %>
+
+
+<% if GAME.players.count != 2 %>
+<form action ='/starting' method='post'>
+What's your name?<input type="text" name="name" placeholder="e.g.Pavel">
+<input type="submit" value="start">
+</form>
 <% end %>

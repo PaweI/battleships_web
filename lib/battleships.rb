@@ -6,7 +6,6 @@ class BattleShip < Sinatra::Base
 
   GAME = Game.new
 
-
   set :views, Proc.new { File.join(root, "..", "views") }
 
   get '/' do
@@ -17,10 +16,17 @@ class BattleShip < Sinatra::Base
     erb :new_game
   end
 
+  get '/starting' do
+    @name = GAME.players[0].name
+    @name2 = GAME.players[1].name
+    erb :starting
+  end
+
   post '/starting' do
     player = Player.new(params[:name])
     GAME.add(player)
-    @name = player.name
+    @name = GAME.players[0].name
+    @name2 = player.name if params[:name] && GAME.players.count == 2
     erb :starting
   end
 
