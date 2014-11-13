@@ -1,6 +1,11 @@
 require 'sinatra/base'
+require_relative 'player'
+require_relative 'game'
 
 class BattleShip < Sinatra::Base
+
+  GAME = Game.new
+
 
   set :views, Proc.new { File.join(root, "..", "views") }
 
@@ -13,6 +18,9 @@ class BattleShip < Sinatra::Base
   end
 
   post '/starting' do
+    player = Player.new(params[:name])
+    GAME.add(player)
+    @name = player.name
     erb :starting
   end
 

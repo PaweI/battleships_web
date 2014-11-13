@@ -1,1 +1,7 @@
-We have 1 player
+<% if @name %>
+Welcome, <%= @name %>!
+<% end %>
+
+<% if GAME.players.count == 1 %>
+<p>We have 1 player</p>
+<% end %>
