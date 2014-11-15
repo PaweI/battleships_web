@@ -10,13 +10,15 @@ class BattleShip < Sinatra::Base
 
   set :public_folder, 'public'
 
-  enable :session
+  enable :sessions
 
   get '/' do
     erb :index
   end
 
   get '/new_game' do
+    session[:game] = GAME
+    p session.inspect
     erb :new_game
   end
 
@@ -29,10 +31,10 @@ class BattleShip < Sinatra::Base
   post '/starting' do
     player = Player.new(params[:name]) 
     GAME.add(player)
-    session['player1'] = player.object_id
+    session['player1'] = GAME.players[GAME.players.index(player)].object_id
     @name = player.name
-    # puts session.inspect
-    @name2 = player.name if params[:name] && GAME.players.count == 2
+    puts session.inspect
+    # @name2 = player.name if params[:name] && GAME.players.count == 2
     erb :starting
   end
 
