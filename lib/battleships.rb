@@ -3,10 +3,9 @@ require_relative 'player'
 require_relative 'game'
 
 class BattleShip < Sinatra::Base
-
   GAME = Game.new
 
-  set :views, Proc.new { File.join(root, "..", "views") }
+  set :views, proc { File.join(root, '..', 'views') }
 
   set :public_folder, 'public'
 
@@ -29,7 +28,7 @@ class BattleShip < Sinatra::Base
   end
 
   post '/starting' do
-    player = Player.new(params[:name]) 
+    player = Player.new(params[:name])
     GAME.add(player)
     session['player1'] = GAME.players[GAME.players.index(player)].object_id
     @name = player.name
@@ -39,6 +38,5 @@ class BattleShip < Sinatra::Base
   end
 
   # start the server if ruby file executed directly
-  run! if app_file == $0
+  run! if app_file == $PROGRAM_NAME
 end
- 
